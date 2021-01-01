@@ -1,13 +1,20 @@
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 
-import Login from './pages/Login';
-import Repositories from './pages/Repositories';
+import Main from './pages/Main';
+import Podcast from './pages/Podcast';
 
 const Routes = createAppContainer(
-  createSwitchNavigator({
-    Login,
-    Repositories,
-  }),
+  createSwitchNavigator(
+    {
+      Main,
+      Podcast,
+    },
+    {
+      defaultNavigationOptions: {
+        header: null,
+      },
+    },
+  ),
 );
 
 export default Routes;
