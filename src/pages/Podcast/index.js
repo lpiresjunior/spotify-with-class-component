@@ -28,11 +28,11 @@ class Podcast extends Component {
     navigation.navigate('Main');
   };
 
-  handlePlay = () => {
+  handlePlay = (episodeId) => {
     const {setPodcastRequest, navigation} = this.props;
     const podcast = navigation.getParam('podcast');
 
-    setPodcastRequest(podcast);
+    setPodcastRequest(podcast, episodeId);
   };
 
   render() {
@@ -62,7 +62,7 @@ class Podcast extends Component {
           data={podcast.tracks}
           keyExtractor={(episode) => String(episode.id)}
           renderItem={({item: episode}) => (
-            <Episode>
+            <Episode onPress={() => this.handlePlay(episode.id)}>
               <Title>{episode.title}</Title>
               <Author>{episode.artist}</Author>
             </Episode>
