@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import PlayerActions from '../../store/ducks/player';
+
 import {
   Container,
   EpisodeList,
@@ -17,11 +21,18 @@ import {
   BackButton,
 } from './styles';
 
-export default class Podcast extends Component {
+class Podcast extends Component {
   handleBack = () => {
     const {navigation} = this.props;
 
     navigation.navigate('Main');
+  };
+
+  handlePlay = () => {
+    const {setPodcastRequest, navigation} = this.props;
+    const podcast = navigation.getParam('podcast');
+
+    setPodcastRequest(podcast);
   };
 
   render() {
@@ -43,7 +54,7 @@ export default class Podcast extends Component {
 
               <PodcastTitle>{podcast.title}</PodcastTitle>
 
-              <PlayButton onPress={() => {}}>
+              <PlayButton onPress={() => this.handlePlay()}>
                 <PlayButtonText>REPRODUZIR</PlayButtonText>
               </PlayButton>
             </PodcastDetails>
@@ -61,3 +72,12 @@ export default class Podcast extends Component {
     );
   }
 }
+
+// const mapStateToProps = (state) => ({
+
+// });
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(PlayerActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Podcast);
